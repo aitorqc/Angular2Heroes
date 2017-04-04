@@ -12,6 +12,8 @@ import { Power } from './power'
                 <label>name: </label>
                 <input [(ngModel)]="hero.name" placeholder="name"/>
             </div>
+            <div>
+                <label>Health: </label>{{hero.health}}
         </div>
 
         <div *ngIf="power && hero">

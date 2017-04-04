@@ -1,25 +1,8 @@
 import { Component } from '@angular/core';
 import { Hero } from './hero';
 import { Power } from './power'
-
-const HEROES: Hero[] = [
-  { id: 11, name: 'Mr. Nice', health: 100 },
-  { id: 12, name: 'Narco', health: 100 },
-  { id: 13, name: 'Bombasto', health: 100 },
-  { id: 14, name: 'Celeritas', health: 120 },
-  { id: 15, name: 'Magneta', health: 100 },
-  { id: 16, name: 'RubberMan', health: 120 },
-  { id: 17, name: 'Dynama', health: 100 },
-  { id: 18, name: 'Dr IQ', health: 100 },
-  { id: 19, name: 'Magma', health: 140 },
-  { id: 20, name: 'Tornado', health: 100 }
-];
-
-const POWERS: Power[] = [
-  { id: 1, name: 'aaa', damage: 0 },
-  { id: 2, name: 'bbb', damage: 0 },
-  { id: 3, name: 'ccc', damage: 0 }
-]
+import { HeroService } from './hero.service';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'my-app',
@@ -47,7 +30,7 @@ const POWERS: Power[] = [
       </div>
     </div>
 
-    <h3>&copy;{{end}}</h3>
+    <h4>&copy;{{end}}</h4>
     `,
   styles: [`
       .selected {
@@ -110,18 +93,30 @@ const POWERS: Power[] = [
         margin-right: .8em;
         border-radius: 4px 0 0 4px;
       }
-    `]
+    `],
+providers: [HeroService]
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Tour of Heroes';
   end = 'Hero.com';
 
-  heroes = HEROES;
+  heroes: Hero[];
+  powers: Power[];  
+  
   selectedHero: Hero;
-
-  powers = POWERS;
   selectedPower: Power;
+
+  constructor(private heroService: HeroService) { }
+
+  getHeroes(): void{
+    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+    this.heroService.getPowers().then(powers => this.powers = powers);
+  }
+
+  ngOnInit(): void{
+    this.getHeroes();
+  }
 
   onSelect(hero: Hero): void{
     this.selectedHero = hero;

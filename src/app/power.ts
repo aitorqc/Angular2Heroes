@@ -1,5 +1,5 @@
 export class Power {
-  id: number;
-  name: string;
-  damage: number;
+    id: number;
+    name: string;
+    damage: number;
 }

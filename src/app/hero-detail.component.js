@@ -28,7 +28,7 @@ __decorate([
 HeroDetailComponent = __decorate([
     core_1.Component({
         selector: 'hero-detail',
-        template: "\n        <div *ngIf=\"hero\">\n            <h2>{{hero.name}}</h2>\n            <div><label>id: </label>{{hero.id}}</div>\n            <div>\n                <label>name: </label>\n                <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n            </div>\n        </div>\n\n        <div *ngIf=\"power && hero\">\n            <h2>{{power.name}}</h2>\n            <label>Damage: </label>{{power.damage}}\n        </div>\n        "
+        template: "\n        <div *ngIf=\"hero\">\n            <h2>{{hero.name}}</h2>\n            <div><label>id: </label>{{hero.id}}</div>\n            <div>\n                <label>name: </label>\n                <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n            </div>\n            <div>\n                <label>Health: </label>{{hero.health}}\n        </div>\n\n        <div *ngIf=\"power && hero\">\n            <h2>{{power.name}}</h2>\n            <label>Damage: </label>{{power.damage}}\n        </div>\n        "
     })
 ], HeroDetailComponent);
 exports.HeroDetailComponent = HeroDetailComponent;
