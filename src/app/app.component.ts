@@ -1,17 +1,11 @@
 import { Component } from '@angular/core';
-import { SelectModule } from 'ng2-select';
+import { Hero } from './hero';
 
-export class Hero {
-  id: number;
-  name: string;
-  health: number;
-}
-
-export class Power{
+export class Power {
   id: number;
   name: string;
   damage: number;
-} 
+}
 
 const HEROES: Hero[] = [
   { id: 11, name: 'Mr. Nice', health: 100 },
@@ -27,45 +21,45 @@ const HEROES: Hero[] = [
 ];
 
 const POWERS: Power[] = [
-  {id: 1, name: 'aaa', damage: Math.floor((Math.random() * 10) + 5)},
-  {id: 2, name: 'bbb', damage: Math.floor((Math.random() * 14) + 2)},
-  {id: 3, name: 'ccc', damage: Math.floor((Math.random() * 7) + 4)}
-] 
+  { id: 1, name: 'aaa', damage: 0 },
+  { id: 2, name: 'bbb', damage: 0 },
+  { id: 3, name: 'ccc', damage: 0 }
+]
 
 @Component({
   selector: 'my-app',
   template: `
     <h1>{{title}}</h1>
 
-    <div *ngIf="selectedHero">
-      <h2>{{selectedHero.name}}</h2>
-      <div>
-        <label>id: </label>{{selectedHero.id}}
-      </div>
-      <div>
-        <label>Name: </label>
-        <input [(ngModel)]="selectedHero.name" placeholder="name">
-      </div>
-      <div>
-        <label>Health: </label>{{selectedHero.health}}
-      </div>
+    <hero-detail [hero]="selectedHero"></hero-detail>
+
+    <div *ngIf="selectedPower && selectedHero">
+      <h2>{{selectedPower.name}}</h2>
+      <label>Damage: </label>{{selectedPower.damage}}
     </div>
 
-    <div>
-      <h2>My Heroes</h2>
-      <div class="heroes" *ngFor="let hero of heroes" (click)="onSelect(hero)">
-        <span class="badge">{{hero.id}}</span> {{hero.name}}
+    <div id="attributes">
+      <div>
+       <h2>My Heroes</h2>
+        <div class="heroes" *ngFor="let hero of heroes" (click)="onSelect(hero)">
+          <span class="badge">{{hero.id}}</span> {{hero.name}}
+        </div>
       </div>
 
-      <h2>Powers</h2>
-      <select>
-        <option  *ngFor="let power of powers" [ngValue]="power">{{power.name}}</option>
-      </select>
+      <div>
+        <h2>Powers</h2>
+        <!--<div id="attr" class="heroes" *ngFor="let power of powers" (click)="onSelectP(power)">
+          <span>{{power.name}}</span>
+        </div>-->
+        <select [ngModel]="selectedPower" (ngModelChange)="onChangeObj($event)">
+          <option [ngValue]="power" *ngFor="let power of powers">{{power.name}}</option>
+        </select>
+      </div>
     </div>
 
     <h3>&copy;{{end}}</h3>
     `,
-    styles: [`
+  styles: [`
       .selected {
         background-color: #CFD8DC !important;
         color: white;
@@ -86,6 +80,18 @@ const POWERS: Power[] = [
         height: 1.6em;
         border-radius: 4px;
         color: black;
+      }
+      div#attr {
+        cursor: pointer;
+        position: relative;
+        left: 0;
+        background-color: #cecece;
+        margin: .5em;
+        padding: .3em 0;
+        height: 1.6em;
+        border-radius: 4px;
+        color: black;
+        text-align: center;
       }
       .heroes li.selected:hover {
         background-color: #BBD8DC !important;
@@ -127,13 +133,29 @@ export class AppComponent {
   powers = POWERS;
   selectedPower: Power;
 
-  onSelect(hero: Hero): void{
+  onSelect(hero: Hero): void {
     this.selectedHero = hero;
   }
 
-  // onSelect(power: Power){
-  //   this.selectedPower = power;
-  // }
-    
+  onChangeObj(power: Power) {
+    switch (power.name) {
+      case 'aaa':
+        console.log('aaa');
+        power.damage = Math.floor((Math.random() * 8) + 5);
+        break;
+      case 'bbb':
+        console.log('bbb');
+        power.damage = Math.floor((Math.random() * 10) + 4);
+        break;
+      case 'ccc':
+        console.log('ccc');
+        power.damage = Math.floor((Math.random() * 12) + 3);
+        break;
+      default:
+        break;
+    }
+    this.selectedPower = power;
+  }
+
 }
 
