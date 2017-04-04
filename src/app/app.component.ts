@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import { Hero } from './hero';
-
-export class Power {
-  id: number;
-  name: string;
-  damage: number;
-}
+import { Power } from './power'
 
 const HEROES: Hero[] = [
   { id: 11, name: 'Mr. Nice', health: 100 },
@@ -31,12 +26,7 @@ const POWERS: Power[] = [
   template: `
     <h1>{{title}}</h1>
 
-    <hero-detail [hero]="selectedHero"></hero-detail>
-
-    <div *ngIf="selectedPower && selectedHero">
-      <h2>{{selectedPower.name}}</h2>
-      <label>Damage: </label>{{selectedPower.damage}}
-    </div>
+    <hero-detail [hero]="selectedHero" [power]="selectedPower"></hero-detail>
 
     <div id="attributes">
       <div>
@@ -133,11 +123,11 @@ export class AppComponent {
   powers = POWERS;
   selectedPower: Power;
 
-  onSelect(hero: Hero): void {
+  onSelect(hero: Hero): void{
     this.selectedHero = hero;
   }
 
-  onChangeObj(power: Power) {
+  onChangeObj(power: Power): void {
     switch (power.name) {
       case 'aaa':
         console.log('aaa');

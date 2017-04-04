@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var hero_1 = require("./hero");
+var power_1 = require("./power");
 var HeroDetailComponent = (function () {
     function HeroDetailComponent() {
     }
@@ -20,10 +21,14 @@ __decorate([
     core_1.Input(),
     __metadata("design:type", hero_1.Hero)
 ], HeroDetailComponent.prototype, "hero", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", power_1.Power)
+], HeroDetailComponent.prototype, "power", void 0);
 HeroDetailComponent = __decorate([
     core_1.Component({
         selector: 'hero-detail',
-        template: "\n        <div *ngIf=\"hero\">\n            <h2>{{hero.name}}</h2>\n            <div><label>id: </label>{{hero.id}}</div>\n            <div>\n                <label>name: </label>\n                <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n            </div>\n        </div>"
+        template: "\n        <div *ngIf=\"hero\">\n            <h2>{{hero.name}}</h2>\n            <div><label>id: </label>{{hero.id}}</div>\n            <div>\n                <label>name: </label>\n                <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n            </div>\n        </div>\n\n        <div *ngIf=\"power && hero\">\n            <h2>{{power.name}}</h2>\n            <label>Damage: </label>{{power.damage}}\n        </div>\n        "
     })
 ], HeroDetailComponent);
 exports.HeroDetailComponent = HeroDetailComponent;
